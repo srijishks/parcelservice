@@ -7,9 +7,6 @@ import { Globals } from './globals';
 
 @Injectable()
 export class ParcelService {
-
- // constructor() { }
-
   constructor(private globals: Globals, private http:Http) { }
     checkmeasurement(formvalue: any): Observable<Parcel> {
       let body = {
@@ -27,8 +24,7 @@ export class ParcelService {
         let options = new RequestOptions({ headers: headers }); // Create a request option
 
         return this.http.post(this.globals.API_BASE_URL+"measurement.php?1=123", bodyString, options) // ...using post request
-                         //.map((res:Response) => res.json()) // ...and calling .json() on the response to return data
-                          .map(this.extractData, bodyString)
+                           .map(this.extractData, bodyString)
                          .catch((error:any) => Observable.throw(error.json().error || 'Server error')); //...errors if any
     
 

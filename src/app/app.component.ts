@@ -28,10 +28,8 @@ export class AppComponent implements OnInit {
 		
 		 ngOnInit() {
 		    this.parselCheckingForm.valueChanges.subscribe(frmvalue => {
-		    	console.log(frmvalue);
 		    	if(frmvalue.length!="" && frmvalue.breadth!="" &&frmvalue.hight!="" &&frmvalue.weight!=""){
-		    		console.log('enter');
-			    	this._parcelservice.checkmeasurement(this.parselCheckingForm.value)
+		    		this._parcelservice.checkmeasurement(this.parselCheckingForm.value)
 			      .subscribe(
 	                       parcel => this.parcelmanagement(parcel, this.parselCheckingForm.value) , //Bind to view
 	                        err => {
@@ -43,54 +41,22 @@ export class AppComponent implements OnInit {
 		    });
 		  }
 		  doCheck(event) {
-		    // console.log(event);
-		    // console.log(this.parselCheckingForm.value);
-
-		   /* if(parseFloat(this.parselCheckingForm.value.weight) >= parseFloat(this.globals.measuremnt.maxweight)){
-				console.log( 'max weight limit exceeds');
-		    	return false;
-
-		    }*/
-		    // Send to a service here
-
-			   /*
-    			this._parcelservice.checkmeasurement(this.parselCheckingForm.value)
-                     .subscribe(
-                       parcel => this.parcel = parcel,
-                       error =>  this.errorMessage = <any>error);
-  				
-                     
-  				this._parcelservice.checkmeasurement(this.parselCheckingForm.value)
-				      .then(parcel => this.parcel = parcel);
-*/
-				      this._parcelservice.checkmeasurement(this.parselCheckingForm.value)
+		    	      this._parcelservice.checkmeasurement(this.parselCheckingForm.value)
 				      .subscribe(
                                parcel => this.parcelmanagement(parcel, this.parselCheckingForm.value) , //Bind to view
                                 err => {
                                     // Log errors if any
                                     console.log(err);
                                 });
-
-		    // this.parselCheckingForm.value.breadth < this.globals.measuremnt.small.l
 		  }
 
 		   parcelmanagement(defultValue, formValue){
 		   	console.log(defultValue.maxweight);
 		   	console.log(formValue.weight);
 		   	this.showmsg = "";
-
-
-console.log( 'defultValue l '+defultValue.large.l);
-console.log( 'defultValue b '+defultValue.large.b);
-console.log( 'defultValue h '+defultValue.large.h);
-console.log( 'formValue l '+formValue.length);
-console.log( 'formValue b '+formValue.breadth);
-console.log( 'formValue h '+formValue.hight);
-
-
 		   	if(parseFloat(defultValue.maxweight) < parseFloat(formValue.weight)){
 				console.log( 'max weight limit exceeds');
-				this.showmsg = 'max weight limit exceeds';
+				this.showmsg = 'Sorry, We are not handling this much big parcels at the moment';
 		    	return;
 
 		    }else 
@@ -98,9 +64,8 @@ console.log( 'formValue h '+formValue.hight);
 		    if(parseFloat(defultValue.small.l) >= parseFloat(formValue.length) &&
 		    	parseFloat(defultValue.small.b) >= parseFloat(formValue.breadth) &&
 		    	parseFloat(defultValue.small.h) >= parseFloat(formValue.hight) 
-		    	){
-				console.log( 'small package');
-				this.showmsg = 'small package: '+defultValue.small.price+'Applies';
+		    	){ 
+				this.showmsg = 'This is a small package: rate $'+defultValue.small.price+' applies';
 		    	return;
 
 		    }else
@@ -109,8 +74,7 @@ console.log( 'formValue h '+formValue.hight);
 		    	parseFloat(defultValue.medium.b) >= parseFloat(formValue.breadth) &&
 		    	parseFloat(defultValue.medium.h) >= parseFloat(formValue.hight) 
 		    	){
-				console.log( 'medium package');
-				this.showmsg = 'medium package: '+defultValue.medium.price+'Applies';
+				this.showmsg = 'This is a medium package: rate $'+defultValue.medium.price+' applies';
 		    	return;
 
 		    }else
@@ -118,15 +82,14 @@ console.log( 'formValue h '+formValue.hight);
 		      if(parseFloat(defultValue.large.l) >= parseFloat(formValue.length) &&
 		    	parseFloat(defultValue.large.b) >= parseFloat(formValue.breadth) &&
 		    	parseFloat(defultValue.large.h) >= parseFloat(formValue.hight) 
-		    	){
-				console.log( 'large package');
-				this.showmsg = 'large package: '+defultValue.large.price+'Applies';
+		    	){ 
+				this.showmsg = 'This is a large package: rate $'+defultValue.large.price+' applies';
 		    	return;
 
 		    } else 
 		    {
-		    	console.log( ' limit exceeds');
-				this.showmsg = ' limit exceeds';
+		    	// console.log( ' limit exceeds');
+				this.showmsg = 'Sorry, We are not handling this much big parcels at the moment';
 		    	return;
 		    }
 
