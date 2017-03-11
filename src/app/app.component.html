@@ -1,3 +1,42 @@
-<h1>
-  {{title}}
-</h1>
+<div class="container">
+ <h1>Example Page Header</h1>
+<div class="jumbotron">
+<form [formGroup]="parselCheckingForm" (ngSubmit)="doCheck($event)">
+	<div class="row">
+	 <div class="col-md-2">
+	    <input class="form-control" formControlName="length" type="number" placeholder="length(mm)">
+	  </div>
+	  <div class="col-md-2">
+	    <input class="form-control" formControlName="breadth" type="number" placeholder="breadth(mm)">
+	     </div>
+	   <div class="col-md-2">
+	    <input class="form-control"  formControlName="hight" type="number" placeholder="height(mm)">
+	     </div>
+	    <div class="col-md-2">
+	    <input class="form-control" formControlName="weight" type="text" placeholder="weight(kg)">
+	     </div>
+		<div class="col-md-4">
+	      <button type="submit" class="btn btn-primary" [disabled]="!parselCheckingForm.valid">Check</button>
+	    </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="row" style="padding-top: 10px">
+    <div *ngIf="parselCheckingForm.controls['length'].hasError('required') && parselCheckingForm.controls['length'].touched" class="alert alert-danger">You must add an length.</div>
+
+		<div *ngIf="parselCheckingForm.controls['breadth'].hasError('required') && parselCheckingForm.controls['breadth'].touched" class="alert alert-danger">You must add breadth.</div>
+
+		<div *ngIf="parselCheckingForm.controls['hight'].hasError('required') && parselCheckingForm.controls['hight'].touched" class="alert alert-danger">You must add an hight.</div>
+
+		<div *ngIf="(parselCheckingForm.controls['weight'].hasError('required') || parselCheckingForm.controls['weight'].hasError('pattern')) && parselCheckingForm.controls['weight'].touched" class="alert alert-danger">You must add an weight.</div>
+</div>
+ 
+
+</form>
+<div class="row" style="padding-top: 10px">
+<div *ngIf="(showmsg) && parselCheckingForm.valid" >
+	<div class="alert alert-info">
+		{{showmsg}}
+	 </div>
+</div>
+</div>
+ </div>
