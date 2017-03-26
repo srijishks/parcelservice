@@ -28,7 +28,8 @@ export class AppComponent implements OnInit {
 		
 		 ngOnInit() {
 		    this.parselCheckingForm.valueChanges.subscribe(frmvalue => {
-		    	if(frmvalue.length!="" && frmvalue.breadth!="" &&frmvalue.hight!="" &&frmvalue.weight!=""){
+		    	// console.log(this.parselCheckingForm.valid);
+		    	if(this.parselCheckingForm.valid){
 		    		this._parcelservice.checkmeasurement(this.parselCheckingForm.value)
 			      .subscribe(
 	                       parcel => this.parcelmanagement(parcel, this.parselCheckingForm.value) , //Bind to view
@@ -51,7 +52,7 @@ export class AppComponent implements OnInit {
 		  }
 
 		   parcelmanagement(defultValue, formValue){
-		   	console.log(defultValue.maxweight);
+		   	
 		   	console.log(formValue.weight);
 		   	this.showmsg = "";
 		   	if(parseFloat(defultValue.maxweight) < parseFloat(formValue.weight)){
